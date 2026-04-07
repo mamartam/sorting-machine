@@ -11,9 +11,7 @@ function createColumn(height) {
 }
 
 generateArrayBtn.addEventListener("click", (event) => {
-  mainContainer.innerHTML = "";
-  mainArray.splice(0);
-  generateArray(5, mainArray);
+  generateArray(20, mainArray);
   generateElement(mainArray);
   console.log(bubbleSort(mainArray));
 });
@@ -23,26 +21,38 @@ function randomaizer(min, max) {
 }
 
 function generateArray(lenght, array) {
+  mainArray.splice(0);
   for (let i = 0; i < lenght; i++) {
     array.push(randomaizer(1, 200));
   }
 }
 
 function generateElement(array) {
+  mainContainer.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
     createColumn(array[i]);
   }
 }
-let bubble;
-function bubbleSort(array) {
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function bubbleSort(array) {
   for (let i = array.length; i > 0; i--) {
     for (let j = 0; j < i - 1; j++) {
       if (array[j] > array[j + 1]) {
-        bubble = array[j];
+        let bubble = array[j];
+        let bubbleStyle = mainContainer.children[j].style.height;
         array[j] = array[j + 1];
+        mainContainer.children[j].style.height =
+          mainContainer.children[j + 1].style.height;
         array[j + 1] = bubble;
+        mainContainer.children[j + 1].style.height = bubbleStyle;
       }
+
+      console.log(array);
+      await sleep(200);
     }
+    mainContainer.children[i - 1].style.backgroundColor = "green";
   }
   return array;
 }
