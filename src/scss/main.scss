@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1px;
+  background-color: pink;
+  width: 100%;
+  height: fit-content;
+  .column {
+    width: 10px;
+    background-color: red;
+  }
+}
